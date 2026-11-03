@@ -8,16 +8,16 @@
 `java -version`:
 
 ```text
-openjdk version "17.0.20.1" 2026-08-18
-OpenJDK Runtime Environment Temurin-17.0.20.1+ (build 17.0.20.1+)
-OpenJDK 64-Bit Server VM Temurin-17.0.20.1+ (build 17.0.20.1+, mixed mode, sharing)
+openjdk version "21.0.5" 2024-10-15 LTS
+OpenJDK Runtime Environment Temurin-21.0.5+11 (build 21.0.5+11-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.5+11 (build 21.0.5+11-LTS, mixed mode, sharing)
 ```
 
 `mvn -version`:
 
 ```text
 Apache Maven 3.9.15
-Java version: 21.0.5, vendor: Eclipse Adoptium
+Java version: 21.0.5, vendor: Eclipse Adoptium, runtime: C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot
 OS name: "windows 11", version: "amd64"
 ```
 
@@ -25,15 +25,15 @@ OS name: "windows 11", version: "amd64"
 
 `CourseRegistrationService`-ийн бизнес логикийг repository болон email илгээгчийн Mockito mock-оор тусгаарлан тестэлсэн. A8 параметржүүлсэн тестийн мөр бүрд өөр stub ашигладаг тул Mockito strict stubs горим ашиглагдаагүй stub-ийг алдаа гэж үзэхээс сэргийлж `lenient()` хэрэглэсэн.
 
-Ногоон тестийн тоо: **10** (`results/mvn-test.txt`). Энэ Windows орчинд Mockito-ийн Byte Buddy agent өөрөө JVM-д холбогдох үед процесс саатаж байсан тул шалгалтыг `mvn "-DargLine=-javaagent:<byte-buddy-agent.jar>" test` хэлбэрээр ажиллуулсан. Ингэснээр Mockito agent JVM эхлэхэд ачаалагдаж, Maven `BUILD SUCCESS` хүртэл бүрэн дууссан.
+Ногоон тестийн тоо: **10** (`results/mvn-test.txt`). `java -version` ба `mvn -version`-ийг хоёуланг нь Temurin JDK 21.0.5-аар ажиллуулсан. Mockito-ийн Byte Buddy agent энэ Windows орчинд JVM-д өөрөө холбогдоход саатаж байсан тул тестийг `mvn "-DargLine=-javaagent:<byte-buddy-agent.jar>" test` гэж ажиллуулсан; энэ нь тайланд бүрэн Maven гаралт болон `BUILD SUCCESS` өгсөн.
 
 ## Мутацийн туршилтын үр дүн
 
 | Мутант | Унасан тест | Log |
 |---|---|---|
-| 1 — идэвхгүй оюутны шалгалтыг устгасан | `идэвхгүйОюутан_бүртгүүлэхэдАлдааБуцааж_цаашШалгахгүй`; параметржүүлсэн тестийн inactive мөр | `results/mvn-test-mutant-1.txt` (2 failure) |
-| 2 — хадгалалтын дуудлагыг устгасан | `идэвхтэйОюутан_бүртгүүлэхэдOkБуцааж_хадгалжИмэйлИлгээнэ`; `имэйлИлгээгчАлдааШидэхэд_бүртгэлOkБайж_хадгалагдана` | `results/mvn-test-mutant-2.txt` (2 failure) |
-| 3 — courseId null шалгалтыг устгасан | `nullОролт_альНэгАргументNullБол_IllegalArgumentException` | `results/mvn-test-mutant-3.txt` (1 failure) |
+| 1 — идэвхгүй оюутны шалгалтыг устгасан | A3 `идэвхгүйОюутан_бүртгүүлэхэдАлдааБуцааж_цаашШалгахгүй` ба A8-ийн `inactive` мөр хоёулаа `ERROR_INACTIVE_STUDENT` хүлээсэн ч `ERROR_NO_COURSE` авсан | `results/mvn-test-mutant-1.txt` — 10 тест, 2 failure, `BUILD FAILURE` |
+| 2 — хадгалалтын дуудлагыг устгасан | A1 `идэвхтэйОюутан_бүртгүүлэхэдOkБуцааж_хадгалжИмэйлИлгээнэ` ба A5 `имэйлИлгээгчАлдааШидэхэд_бүртгэлOkБайж_хадгалагдана` дээр `saveRegistration` дуудагдаагүй | `results/mvn-test-mutant-2.txt` — 10 тест, 2 failure, `BUILD FAILURE` |
+| 3 — courseId null шалгалтыг устгасан | A6 `nullОролт_альНэгАргументNullБол_IllegalArgumentException` дээр courseId null байхад exception гараагүй | `results/mvn-test-mutant-3.txt` — 10 тест, 1 failure, `BUILD FAILURE` |
 
 Бүх гурван мутант дор хаяж нэг тестээр баригдсан. Гурав дахь мутантыг илрүүлэхийн тулд A6 тестэд `studentId` болон `courseId`-ийн null тохиолдлыг тус тусад нь шалгасан.
 
