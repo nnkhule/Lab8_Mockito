@@ -25,7 +25,7 @@ OS name: "windows 11", version: "amd64"
 
 `CourseRegistrationService`-ийн бизнес логикийг repository болон email илгээгчийн Mockito mock-оор тусгаарлан тестэлсэн. A8 параметржүүлсэн тестийн мөр бүрд өөр stub ашигладаг тул Mockito strict stubs горим ашиглагдаагүй stub-ийг алдаа гэж үзэхээс сэргийлж `lenient()` хэрэглэсэн.
 
-Ногоон тестийн тоо: **10** (`results/mvn-test.txt`). `java -version` ба `mvn -version`-ийг хоёуланг нь Temurin JDK 21.0.5-аар ажиллуулсан. Mockito-ийн Byte Buddy agent энэ Windows орчинд JVM-д өөрөө холбогдоход саатаж байсан тул тестийг `mvn "-DargLine=-javaagent:<byte-buddy-agent.jar>" test` гэж ажиллуулсан; энэ нь тайланд бүрэн Maven гаралт болон `BUILD SUCCESS` өгсөн.
+Ногоон тестийн тоо: **10** (`results/mvn-test.txt`). `java -version` ба `mvn -version`-ийг хоёуланг нь Temurin JDK 21.0.5-аар ажиллуулсан. Mockito-ийн Byte Buddy agent-ийг Surefire-ийн `argLine`-д `pom.xml`-оор автоматаар ачаалуулахаар тохируулсан. Ингэснээр цэвэр checkout дээр нэмэлт параметргүй `mvn test` ажиллаж, 10/10 тест ба `BUILD SUCCESS` өгсөн.
 
 ## Мутацийн туршилтын үр дүн
 
