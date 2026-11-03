@@ -2,3 +2,21 @@ target/
 .idea/
 .DS_Store
 .m2repo/
+
+# Maven
+target/
+.mvn/
+
+# IDE
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+
+# ~/.gitignore_global нь *.xml болон .gitignore-ыг ignore хийдэг тул энд дахин зөвшөөрнө
+!.gitignore
+!pom.xml

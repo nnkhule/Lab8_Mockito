@@ -25,15 +25,15 @@ OS name: "windows 11", version: "amd64"
 
 `CourseRegistrationService`-ийн бизнес логикийг repository болон email илгээгчийн Mockito mock-оор тусгаарлан тестэлсэн. A8 параметржүүлсэн тестийн мөр бүрд өөр stub ашигладаг тул Mockito strict stubs горим ашиглагдаагүй stub-ийг алдаа гэж үзэхээс сэргийлж `lenient()` хэрэглэсэн.
 
-Ногоон тестийн тоо: **10** (`results/mvn-test.txt`).
+Ногоон тестийн тоо: **10** (`results/mvn-test.txt`). Энэ Windows орчинд Mockito-ийн Byte Buddy agent өөрөө JVM-д холбогдох үед процесс саатаж байсан тул шалгалтыг `mvn "-DargLine=-javaagent:<byte-buddy-agent.jar>" test` хэлбэрээр ажиллуулсан. Ингэснээр Mockito agent JVM эхлэхэд ачаалагдаж, Maven `BUILD SUCCESS` хүртэл бүрэн дууссан.
 
 ## Мутацийн туршилтын үр дүн
 
 | Мутант | Унасан тест | Log |
 |---|---|---|
-| 1 — идэвхгүй оюутны шалгалтыг устгасан | `идэвхгүйОюутан_бүртгүүлэхэдАлдааБуцааж_цаашШалгахгүй` | `results/mvn-test-mutant-1.txt` |
-| 2 — хадгалалтын дуудлагыг устгасан | `идэвхтэйОюутан_бүртгүүлэхэдOkБуцааж_хадгалжИмэйлИлгээнэ` | `results/mvn-test-mutant-2.txt` |
-| 3 — courseId null шалгалтыг устгасан | `nullОролт_альНэгАргументNullБол_IllegalArgumentException` | `results/mvn-test-mutant-3.txt` |
+| 1 — идэвхгүй оюутны шалгалтыг устгасан | `идэвхгүйОюутан_бүртгүүлэхэдАлдааБуцааж_цаашШалгахгүй`; параметржүүлсэн тестийн inactive мөр | `results/mvn-test-mutant-1.txt` (2 failure) |
+| 2 — хадгалалтын дуудлагыг устгасан | `идэвхтэйОюутан_бүртгүүлэхэдOkБуцааж_хадгалжИмэйлИлгээнэ`; `имэйлИлгээгчАлдааШидэхэд_бүртгэлOkБайж_хадгалагдана` | `results/mvn-test-mutant-2.txt` (2 failure) |
+| 3 — courseId null шалгалтыг устгасан | `nullОролт_альНэгАргументNullБол_IllegalArgumentException` | `results/mvn-test-mutant-3.txt` (1 failure) |
 
 Бүх гурван мутант дор хаяж нэг тестээр баригдсан. Гурав дахь мутантыг илрүүлэхийн тулд A6 тестэд `studentId` болон `courseId`-ийн null тохиолдлыг тус тусад нь шалгасан.
 
