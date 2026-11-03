@@ -1,0 +1,10 @@
+[INFO] Scanning for projects...
+[INFO] Building lab08-mockito 1.0
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ lab08-mockito ---
+[INFO] --- surefire:3.2.5:test (default-test) @ lab08-mockito ---
+[INFO] Running mn.edu.must.sqat.CourseRegistrationServiceTest
+-------------------------------------------------------------------------------
+Test set: mn.edu.must.sqat.CourseRegistrationServiceTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.881 s -- in mn.edu.must.sqat.CourseRegistrationServiceTest
+[INFO] BUILD SUCCESS
